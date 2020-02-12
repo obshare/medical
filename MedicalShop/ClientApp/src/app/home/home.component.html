@@ -1,0 +1,29 @@
+<h1>Hello, world!</h1>
+<p>Welcome to your new single-page application, built with:</p>
+
+<div class="row">
+    <div class="col-sm-12">
+        <input type="text" placeholder="search text goes here" id="searchText" [(ngModel)]='searchText'>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-sm-3">Id</div>
+    <div class="col-sm-3">NAME</div>
+    <div class="col-sm-3">Date</div>
+    <div class="col-sm-3">OPTION</div>
+</div>
+<div class="row" *ngFor='let item of items | filter : searchText | paginate: { itemsPerPage: 2, currentPage: p }'>
+
+    <div class="col-sm-3">{{item.id}}</div>
+    <div class="col-sm-3">{{item.name}}</div>
+    <div class="col-sm-3" [style.background-color]="dateTime <= 'INVALID' ? 'yellow' : 'green'">{{item.dateTime | date}}
+    </div>
+    <div class="col-sm-3">
+        <div>
+            <a href="/edit/{{item.id}}">Edit</a>
+        </div>
+    </div>
+
+</div>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
