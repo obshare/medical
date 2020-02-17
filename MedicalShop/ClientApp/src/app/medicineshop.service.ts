@@ -1,56 +1,56 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Medicine } from '../Model/Medicine';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import 'rxjs/add/operator/map'
 
 @Injectable()
 export class MedicineshopService {
-  public forecasts: Medicine[];
+  public meds: Medicine[];
+  public med: Medicine;
   public baseUrl: string;
-  constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(private readonly http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
+
+  }
+  getAll(): Observable<any> {
+    return this.http.get(this.baseUrl + 'api/Medicines/');
   }
 
-  public getAll(
-  ): Observable<any> {
-    return this.http.get<any[]>(this.baseUrl + 'api/Medicines');
-  }
 
   public getId(
     id: number
-  ): Observable<Medicine> {
-
+  ): Observable<any> {
     return this.http.get<Medicine>(this.baseUrl + 'api/Medicines/' + id);
+
   }
 
-  protected put(
+  public put(
     id: string,
-    model: Medicine
-  ): Observable<any> {
-    return this.http.put<Medicine>(this.baseUrl + 'api/Medicines/' + id, model);
-  }
-
-  protected patch(
-    path: string,
     body: any
   ): Observable<any> {
-    let absolutePath = this.baseUrl + path;
-    return this.http.patch(absolutePath, body);
+    let endpointUri = `${this.baseUrl + 'api/Medicines/'}/${id}`;
+    return this.http.put(endpointUri, body);
   }
 
-  protected post(
-    path: string,
-    body: any
+
+  public post(
+    med: any
   ): Observable<any> {
-    let absolutePath = this.baseUrl + path;
-    return this.http.post(absolutePath, body);
+    let endpointUri = this.baseUrl + 'api/Medicines/';
+    return this.http.post(endpointUri, med);
+
   }
 
-  protected delete(
-    path: string
+
+  public deleteId(
+    id: string
   ): Observable<any> {
-    let absolutePath = this.baseUrl + path;
-    return this.http.delete(absolutePath);
+    let endpointUri = this.baseUrl + 'api/Medicines/' + id;
+    return this.http.delete(endpointUri)
+  }
+  private errorHandler(error: any) {
+    return new error('');
   }
 
 }

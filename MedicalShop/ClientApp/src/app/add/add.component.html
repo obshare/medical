@@ -1,9 +1,5 @@
 <div name="formname">
     <div class="form-group">
-        <label for="formcontrolid">id</label>
-        <p>{{id}}</p>
-    </div>
-    <div class="form-group">
         <label for="formcontrolname">Name</label>
         <input type="text" class="form-control" id="formcontrolname" [(ngModel)]="name" value="name" placeholder="medicine name">
     </div>
@@ -15,5 +11,5 @@
         <label for="formcontroldatetime">Datetime</label>
         <input type="text" class="form-control" id="formcontroldatetime" [(ngModel)]="dateTime" placeholder="date">
     </div>
-    <button type="submit" class="btn btn-primary" (click)="OnClick()">Update</button>
+    <button type="submit" class="btn btn-primary" (click)="OnClick()">Insert</button>
 </div>

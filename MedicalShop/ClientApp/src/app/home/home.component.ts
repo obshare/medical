@@ -22,7 +22,6 @@ export class HomeComponent {
   }
 
   private getAll() {
-
     this._medicineshopService.getAll()
       .subscribe(result => {
         console.log(result);
